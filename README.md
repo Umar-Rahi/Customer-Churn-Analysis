@@ -3,8 +3,7 @@
 
 **AICTE | IBM SkillsBuild Data Analytics with AI Internship 2026**  
 **Author:** Umar Rahi | **BharatCares**  
-**GitHub:** [https://github.com/Umar-Rahi/Customer-Churn-Analysis](Customer Churn Analysis)
-
+**GitHub:** [https://github.com/Umar-Rahi/Customer-Churn-Analysis](https://github.com/Umar-Rahi/Customer-Churn-Analysis)
 **Dataset Link:** [https://docs.google.com/spreadsheets/d/1POBGa8tgfELvQIrz-ca_tOEhQPI_8BbT/edit?usp=sharing&ouid=105897510512459950654&rtpof=true&sd=true]
 
 ---
