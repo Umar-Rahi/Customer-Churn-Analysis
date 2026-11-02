@@ -551,7 +551,6 @@ _CHART_LAYOUT = dict(
     paper_bgcolor="white",
     plot_bgcolor="#f9fafb",
     font=dict(family="'Segoe UI', system-ui, sans-serif", size=12, color="#1f2937"),
-    title=dict(font=dict(color="#111827", size=15)),
     xaxis=dict(color="#374151", tickfont=dict(color="#374151"), title_font=dict(color="#374151")),
     yaxis=dict(color="#374151", tickfont=dict(color="#374151"), title_font=dict(color="#374151")),
     margin=dict(t=50, b=30, l=40, r=20),
