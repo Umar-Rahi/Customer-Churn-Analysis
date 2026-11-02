@@ -55,37 +55,65 @@ st.markdown("""
 <style>
     /* ── Layout ── */
     .stApp { background-color: #f4f6fb; }
-    /* Force readable dark text in the light main canvas. Streamlit's active
-       theme can otherwise leave markdown/body text white on this background. */
-    [data-testid="stAppViewContainer"] .main,
-    [data-testid="stAppViewContainer"] .main .block-container {
+    /*
+       GLOBAL MAIN-CANVAS CONTRAST FIX
+       Scope this to Streamlit's main area so the navy sidebar keeps its
+       intentionally light text. Streamlit theme variables and nested markdown
+       elements can otherwise override inherited foreground colours.
+    */
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] {
+        color: #1f2937 !important;
+        color-scheme: light;
+    }
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] p,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] li,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] label,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] h1,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] h2,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] h3,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] h4,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] h5,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] h6,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] [data-testid="stMarkdownContainer"],
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] [data-testid="stMarkdownContainer"] *,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] [data-testid="stCaptionContainer"],
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] [data-testid="stAlert"] p {
         color: #1f2937 !important;
     }
-    [data-testid="stAppViewContainer"] .main p,
-    [data-testid="stAppViewContainer"] .main li,
-    [data-testid="stAppViewContainer"] .main label,
-    [data-testid="stAppViewContainer"] .main span,
-    [data-testid="stAppViewContainer"] .main div[data-testid="stMarkdownContainer"],
-    [data-testid="stAppViewContainer"] .main div[data-testid="stMarkdownContainer"] p,
-    [data-testid="stAppViewContainer"] .main div[data-testid="stMarkdownContainer"] li,
-    [data-testid="stAppViewContainer"] .main h1,
-    [data-testid="stAppViewContainer"] .main h2,
-    [data-testid="stAppViewContainer"] .main h3,
-    [data-testid="stAppViewContainer"] .main h4,
-    [data-testid="stAppViewContainer"] .main h5,
-    [data-testid="stAppViewContainer"] .main h6 {
-        color: #1f2937 !important;
+    /* Preserve intentional white text on coloured custom components. */
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .section-header,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .section-header *,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .kpi-card,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .kpi-card * {
+        color: inherit;
     }
-    /* Tabs: inactive labels were inheriting the low-contrast theme foreground. */
-    [data-testid="stAppViewContainer"] button[role="tab"] {
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .section-header {
+        color: #ffffff !important;
+    }
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .kpi-label { color: #6b7280 !important; }
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .kpi-value { color: #0f1e38 !important; }
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .kpi-sub { color: #6b7280 !important; }
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .limitation-box,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .limitation-box *,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .demo-banner,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .demo-banner *,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .info-box,
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .info-box * {
+        color: inherit !important;
+    }
+    /* Tabs use a paragraph inside the button in current Streamlit builds. */
+    [data-testid="stAppViewContainer"] [data-testid="stTabs"] button[role="tab"],
+    [data-testid="stAppViewContainer"] [data-testid="stTabs"] button[role="tab"] p {
         color: #334155 !important;
+        opacity: 1 !important;
     }
-    [data-testid="stAppViewContainer"] button[role="tab"][aria-selected="true"] {
+    [data-testid="stAppViewContainer"] [data-testid="stTabs"] button[role="tab"][aria-selected="true"],
+    [data-testid="stAppViewContainer"] [data-testid="stTabs"] button[role="tab"][aria-selected="true"] p {
         color: #dc2626 !important;
     }
-    [data-testid="stAppViewContainer"] .main a {
-        color: #1d4ed8 !important;
-    }
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] a { color: #1d4ed8 !important; }
+    /* Keep Plotly toolbar controls legible on white chart cards. */
+    [data-testid="stAppViewContainer"] [data-testid="stMain"] .modebar { opacity: .75 !important; }
     .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
 
     /* ── Sidebar ── */
@@ -522,7 +550,10 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 _CHART_LAYOUT = dict(
     paper_bgcolor="white",
     plot_bgcolor="#f9fafb",
-    font=dict(family="'Segoe UI', system-ui, sans-serif", size=12),
+    font=dict(family="'Segoe UI', system-ui, sans-serif", size=12, color="#1f2937"),
+    title=dict(font=dict(color="#111827", size=15)),
+    xaxis=dict(color="#374151", tickfont=dict(color="#374151"), title_font=dict(color="#374151")),
+    yaxis=dict(color="#374151", tickfont=dict(color="#374151"), title_font=dict(color="#374151")),
     margin=dict(t=50, b=30, l=40, r=20),
 )
 
