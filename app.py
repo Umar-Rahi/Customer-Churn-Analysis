@@ -55,6 +55,37 @@ st.markdown("""
 <style>
     /* ── Layout ── */
     .stApp { background-color: #f4f6fb; }
+    /* Force readable dark text in the light main canvas. Streamlit's active
+       theme can otherwise leave markdown/body text white on this background. */
+    [data-testid="stAppViewContainer"] .main,
+    [data-testid="stAppViewContainer"] .main .block-container {
+        color: #1f2937 !important;
+    }
+    [data-testid="stAppViewContainer"] .main p,
+    [data-testid="stAppViewContainer"] .main li,
+    [data-testid="stAppViewContainer"] .main label,
+    [data-testid="stAppViewContainer"] .main span,
+    [data-testid="stAppViewContainer"] .main div[data-testid="stMarkdownContainer"],
+    [data-testid="stAppViewContainer"] .main div[data-testid="stMarkdownContainer"] p,
+    [data-testid="stAppViewContainer"] .main div[data-testid="stMarkdownContainer"] li,
+    [data-testid="stAppViewContainer"] .main h1,
+    [data-testid="stAppViewContainer"] .main h2,
+    [data-testid="stAppViewContainer"] .main h3,
+    [data-testid="stAppViewContainer"] .main h4,
+    [data-testid="stAppViewContainer"] .main h5,
+    [data-testid="stAppViewContainer"] .main h6 {
+        color: #1f2937 !important;
+    }
+    /* Tabs: inactive labels were inheriting the low-contrast theme foreground. */
+    [data-testid="stAppViewContainer"] button[role="tab"] {
+        color: #334155 !important;
+    }
+    [data-testid="stAppViewContainer"] button[role="tab"][aria-selected="true"] {
+        color: #dc2626 !important;
+    }
+    [data-testid="stAppViewContainer"] .main a {
+        color: #1d4ed8 !important;
+    }
     .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
 
     /* ── Sidebar ── */
