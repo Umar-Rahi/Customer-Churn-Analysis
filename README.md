@@ -5,7 +5,7 @@
 **Author:** Umar Rahi  
 **GitHub:** [https://github.com/Umar-Rahi/Customer-Churn-Analysis](https://github.com/Umar-Rahi/Customer-Churn-Analysis)
 
-> ⚠️ **Live Demo URL:** _Deployment pending — see [Render Deployment](#render-deployment) section below._
+> 🚀 **Live Demo:** [Open Customer Churn Analysis Dashboard](https://customer-churn-analysis-nmrb.onrender.com)
 
 ---
 
