@@ -1071,12 +1071,19 @@ with tab4:
                 title="Top Feature Importances (Random Forest, in-sample exploratory)",
                 labels={"importance": "Importance Score", "feature": "Feature"},
             )
-            fig_fi.update_layout(
-                height=380,
-                coloraxis_showscale=False,
-                yaxis={"categoryorder": "total ascending"},
+            # Merge the custom y-axis ordering with shared chart styling.
+            # Passing yaxis explicitly and again through **_CHART_LAYOUT causes
+            # Plotly's "multiple values for keyword argument 'yaxis'" error.
+            feature_layout = {
                 **_CHART_LAYOUT,
-            )
+                "height": 380,
+                "coloraxis_showscale": False,
+                "yaxis": {
+                    **_CHART_LAYOUT.get("yaxis", {}),
+                    "categoryorder": "total ascending",
+                },
+            }
+            fig_fi.update_layout(**feature_layout)
             st.plotly_chart(fig_fi, use_container_width=True)
 
         # Risk score table — uses df_master so all customers visible even if filtered
