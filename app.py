@@ -642,12 +642,15 @@ with tab1:
             textfont_size=12,
             pull=[0, 0.04],
         ))
-        fig_donut.update_layout(
-            title="Churn Distribution",
-            height=300,
-            showlegend=False,
+        # Merge layout options into one dictionary before calling Plotly.
+        # Passing title twice (explicitly and via **_CHART_LAYOUT) raises TypeError.
+        donut_layout = {
             **{k: v for k, v in _CHART_LAYOUT.items() if k != "plot_bgcolor"},
-        )
+            "title": "Churn Distribution",
+            "height": 300,
+            "showlegend": False,
+        }
+        fig_donut.update_layout(**donut_layout)
         fig_donut.add_annotation(
             text=f"<b>{float(kpis['churn_rate_pct']):.1f}%</b><br>Churn",
             x=0.5, y=0.5,
